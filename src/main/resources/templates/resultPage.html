@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Application</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Style of ResultPage -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            transition: background 1s ease-in-out;
+            color: #ECEFF1;
+            overflow-y: auto;
+        }
+
+        video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.6);
+        }
+
+        .weather-container {
+            display: flex;
+            flex-direction: column;
+            background: rgba(36, 39, 36, 0.85);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+            width: 400px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .city {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-family: 'Pacifico', cursive;
+        }
+
+        #temperature {
+            font-size: 20px;
+            font-weight: bold;
+            color: #BBDEFB;
+            margin-top: 10px;
+        }
+
+        #weather-summary {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: 400;
+            color: #ffffff;
+        }
+
+        #time {
+            font-size: 16px;
+            margin-top: 8px;
+            color: #CFD8DC;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        th,
+        td {
+            border: 1px solid #ECEFF1;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .city-info,
+        .time-info,
+        .wind-info {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .wind-info {
+            margin: 10px 0;
+        }
+
+        .wind-info-1 {
+            display: flex;
+            flex-direction:
+             row;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- //Surrounding background View -->
+    <video id="background-video" autoplay muted loop>
+        <source src="day.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="weather-container fade-in">
+        <div class="city-info">
+            <div class="city" th:text="${data[0]}">City Name</div>
+            <img id="weather-icon" th:src="@{${data[3]}}" alt="Weather Icon">
+        </div>
+
+        <div class="time-info">
+            <div id="time" th:text="${data[1]}">Current Time</div>
+            <div id="temperature" th:text="${data[2]} + '°C'">24°C</div>
+        </div>
+
+        <div class="wind-info">
+            <div class="wind-info-1">
+                🌬️<div id="wind-speed" th:text="${data[5]} + ' mph'"></div>
+            </div>
+            <div>
+                ❄️<div id="humidity" th:text="${data[6]} + ' %'"></div>
+            </div>
+        </div>
+
+        <!-- Weather Summary -->
+        <div id="weather-summary">Today's weather summary will appear here.</div>
+        <h3>3-Days Forecast</h3>
+        <!-- 3-Days Weather Forecasting Update --- task -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Average Temp (°C)</th>
+                    <th>Max Temp (°C)</th>
+                    <th>Min Temp (°C)</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="forecast : ${fdata}">
+                    <td th:text="${forecast[0]}">Date</td>
+                    <td th:text="${forecast[1]}">Time</td>
+                    <td th:text="${forecast[2]}">Avg Temp</td>
+                    <td th:text="${forecast[3]}">Max Temp</td>
+                    <td th:text="${forecast[4]}">Min Temp</td>
+                    <td th:text="${forecast[5]}">Description</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            const temperature = Number(/*[[${data[2]}]]*/);
+            const windSpeed = Number(/*[[${data[5]}]]*/);
+            const description = String(/*[[${data[6]}]]*/).toLowerCase();
+            const time = String(/*[[${data[1]}]]*/);
+            let videoSource = "day.mp4";
+            const parsedDate = new Date(time);
+            const options = {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true
+            };
+            const formattedTime = parsedDate.toLocaleDateString('en-US', options);
+            $('#time').text(formattedTime);
+
+            // Weather Visual appearance based on weather conditions ----- Task
+            let summary;
+            if (description.includes('rain')) {
+                summary = "It's rainy outside. Don't forget your umbrella ☔";
+                videoSource = "rainy_day.mp4";
+            } else if (description.includes('fog')) {
+                summary = "It's quite foggy. Be cautious while traveling 🌫️";
+                videoSource = "foggy.mp4";
+            } else if (temperature > 35) {
+                summary = "It's a scorching day! Stay hydrated and avoid the sun ☀️";
+                videoSource = "hot_day.mp4";
+            } else if (temperature < 10) {
+                summary = "It's freezing outside. Keep yourself warm 🧥";
+                videoSource = "cold_day.mp4";
+            } else if (windSpeed > 15) {
+                summary = "Strong winds today. Hold onto your hats 🌬️";
+                videoSource = "windy.mp4";
+            } else {
+                summary = "The weather is pleasant. Enjoy your day 🍀";
+            }
+            $('#weather-summary').text(summary);
+
+            // Setting video source dynamically
+            $('#background-video source').attr('src', videoSource);
+            $('#background-video')[0].load(); 
+        });
+
+        // Reloading the page every 300 seconds (5 minutes) ---- Task
+        setInterval(function () {
+            location.reload();
+        }, 300000);
+    </script>
+
+</body>
+
+</html>
