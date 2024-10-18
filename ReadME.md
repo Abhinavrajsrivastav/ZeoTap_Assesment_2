@@ -19,7 +19,7 @@ Make sure you have the following installed:
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/Abhinavrajsrivastav/ZeoTap_Assessment_2.git
-cd "ZeoTap Assessment 2"
+cd ZeoTap Assessment 2
 ```
 
 ### 2. Application Setup (Spring Boot)
@@ -77,7 +77,7 @@ POST /weatherApp
    - **Min Temperature**
    - **Max Temperature**
 
-3. **Data Saved in Database**: The weather data is saved in a MySQL database.
+3. **Data Saved in Database**: Everytime user make a weather request for a city it will be saved in a MySQL database table 'weather_record'.
 
 ## Contributing
 
