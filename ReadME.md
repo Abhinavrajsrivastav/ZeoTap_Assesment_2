@@ -8,7 +8,7 @@ OpenWeatherMap API ***(https://openweathermap.org/)***.
 
 ## Project Structure
 ```
-application  # Root directory
+  ZeoTap Assessment 2 # Root directory
 ```
 
 ## Prerequisites
