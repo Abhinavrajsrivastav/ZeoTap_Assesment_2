@@ -1,14 +1,10 @@
-# Java Spring Boot Project - Weather Monitoring System with OpenWeatherMap API Assesment 2
+# Java Spring Boot Project - Weather Monitoring System with OpenWeatherMap API Assessment 2
 
-Develop a ***real-time data processing system*** to monitor weather conditions and provide
-summarized insights using rollups and aggregates. The system will utilize data from the
-OpenWeatherMap API ***(https://openweathermap.org/)***.
-
-
+Develop a **real-time data processing system** to monitor weather conditions and provide summarized insights using rollups and aggregates. The system will utilize data from the OpenWeatherMap API **(https://openweathermap.org/)**.
 
 ## Project Structure
 ```
-  ZeoTap Assessment 2 # Root directory
+ZeoTap Assessment 2          # Root directory
 ```
 
 ## Prerequisites
@@ -22,18 +18,16 @@ Make sure you have the following installed:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Abhinavrajsrivastav/ZeoTap_Assesment_2.git
-cd ZeoTap Assessment 2
+git clone https://github.com/Abhinavrajsrivastav/ZeoTap_Assessment_2.git
+cd "ZeoTap Assessment 2"
 ```
 
-
 ### 2. Application Setup (Spring Boot)
-navigate to application.properties
-add the apikey for openweathermap api key in the application.properties file
-add database credentials in the application.properties file(SQL table schema should similar to WeatherRecord.java)
-```bash
+1. Navigate to `application.properties`.
+2. Add the OpenWeatherMap API key in the `application.properties` file.
+3. Add database credentials in the `application.properties` file (SQL table schema should be similar to `WeatherRecord.java`).
 
-Run the Spring Boot application:
+### 3. Run the Spring Boot Application
 ```bash
 mvn spring-boot:run
 ```
@@ -42,18 +36,16 @@ The backend API will be running at:
 
 ## Used API
 - **OpenWeatherMap API**: [https://openweathermap.org/](https://openweathermap.org/)
-  
 
 Sample API endpoints:
 ```
-GET /wheteherApp
-POST /wheteherApp
+GET /weatherApp
+POST /weatherApp
 ```
 
 ## Accessing the Application
 
-- **Application Start**: [http://localhost:8089](http://localhost:8089)  
-
+- **Application Start**: [http://localhost:8089](http://localhost:8089)
 
 ## Technologies Used
 
@@ -66,25 +58,24 @@ POST /wheteherApp
 ## Features Implemented
 
 1. **Real-time Data Processing**: The system processes real-time weather data from the OpenWeatherMap API.
-details: 
-    - **Date and Time**
-    - **Temperature**
-    - **Humidity**
-    - **Wind Speed**
-    - **Weather Condition**
-    - **Min Temperature**
-    - **Max Temperature**
-    - **City Name**
-    -**Surrounding conditions**
+   - **Date and Time**
+   - **Temperature**
+   - **Humidity**
+   - **Wind Speed**
+   - **Weather Condition**
+   - **Min Temperature**
+   - **Max Temperature**
+   - **City Name**
+   - **Surrounding Conditions**
 
-2. **Weather Forecast**: The system provides a weather forecast for the next 3 days. including the following details:
-    - **Date**
-    - **Temperature**
-    - **Humidity**
-    - **Wind Speed**
-    - **Weather Condition**
-    - **Min Temperature**
-    - **Max Temperature**
+2. **Weather Forecast**: The system provides a weather forecast for the next 3 days, including the following details:
+   - **Date**
+   - **Temperature**
+   - **Humidity**
+   - **Wind Speed**
+   - **Weather Condition**
+   - **Min Temperature**
+   - **Max Temperature**
 
 3. **Data Saved in Database**: The weather data is saved in a MySQL database.
 
