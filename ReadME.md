@@ -1,4 +1,4 @@
-# Java Spring Boot and React.js Project - Rule Engine with AST
+# Java Spring Boot and React.js Project - Weather Monitoring System with OpenWeatherMap API Assesment 2
 
 Develop a ***real-time data processing system*** to monitor weather conditions and provide
 summarized insights using rollups and aggregates. The system will utilize data from the
